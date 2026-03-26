@@ -2,9 +2,8 @@ import { type NextConfig } from "next";
 
 // /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-	devIndicators: {
-		buildActivity: false,
-	},
+	devIndicators: false,
+
 	output: process.env.BUILD_STANDALONE === "true" ? "standalone" : undefined,
 	images: {
 		remotePatterns: [
