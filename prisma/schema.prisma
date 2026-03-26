@@ -1,0 +1,50 @@
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model FavoriteMovies {
+  id               String    @id @default(cuid()) @map("_id")
+  clerkId          String
+  movieId          String
+  movieTitle       String
+  moviePosterPath  String
+  movieRating      String
+  movieReleaseDate String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  UserFavorites    UserData? @relation(fields: [userFavoritesId], references: [id], onDelete: Cascade)
+  userFavoritesId  String?
+}
+
+model WathclistMovies {
+  id               String    @id @default(cuid()) @map("_id")
+  clerkId          String
+  movieId          String
+  movieTitle       String
+  moviePosterPath  String
+  movieRating      String
+  movieReleaseDate String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  UserFavorites    UserData? @relation(fields: [userFavoritesId], references: [id], onDelete: Cascade)
+  userFavoritesId  String?
+}
+
+model UserData {
+  id              String            @id @default(cuid()) @map("_id")
+  clerkId         String            @unique
+  favoriteMovies  FavoriteMovies[]
+  watchlistMovies WathclistMovies[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
