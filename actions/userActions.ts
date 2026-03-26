@@ -2,7 +2,7 @@
 
 import db from "@/prisma/db";
 import { currentUser } from "@clerk/nextjs/server";
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { updateTag, unstable_cache } from "next/cache";
 
 export const isUserExists = async (userId: string) => {
 	const user = await db.userData.findUnique({
@@ -60,6 +60,24 @@ export const isInWatchlistMovie = async (userId: string, movieId: string) => {
 };
 
 //===================== toggle favorite and watchlist Movie =========================
+
+/*
+
+model FavoriteMovies {
+  id               String         @id @default(cuid()) @map("_id")
+  movieId          String
+  movieTitle       String
+  moviePosterPath  String
+  movieRating      String
+  movieReleaseDate String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  UserFavorites    UserFavorites? @relation(fields: [userFavoritesId], references: [id])
+  userFavoritesId  String?
+}
+
+
+*/
 
 interface FavoriteMovie {
 	userId: string;
@@ -130,8 +148,8 @@ export const ToggleFavoriteMovie = async ({
 	}
 
 	// Revalidate only the specific tags that changed
-	revalidatePath(`/user-profile/${userId}/favorites`);
-	revalidatePath(`/user-profile/${userId}/watchlist`);
+	updateTag(`user-favorites-${userId}`);
+	updateTag(`movie-${movieId}-favorites`);
 };
 
 interface WatchlistMovie {
@@ -203,8 +221,8 @@ export const ToggleWatchlistMovie = async ({
 	}
 
 	// Revalidate only the specific tags that changed
-	revalidatePath(`/user-profile/${userId}/watchlist`);
-	revalidatePath(`/user-profile/${userId}/favorites`);
+	updateTag(`user-watchlist-${userId}`);
+	updateTag(`movie-${movieId}-watchlist`);
 };
 
 //=====================  user favorite movies =========================
@@ -237,8 +255,8 @@ export const removeFavoriteMovie = async (movieId: string, userId: string) => {
 		},
 	});
 
-	revalidatePath(`/user-profile/${userId}/favorites`);
-	revalidatePath(`/user-profile/${userId}/watchlist`);
+	updateTag(`user-favorites-${userId}`);
+	updateTag(`movie-${movieId}-favorites`);
 };
 
 //===================== get user watchlist movies =========================
@@ -272,6 +290,6 @@ export const removeWatchlistMovie = async (movieId: string, userId: string) => {
 		},
 	});
 
-	revalidatePath(`/user-profile/${userId}/watchlist`);
-	revalidatePath(`/user-profile/${userId}/favorites`);
+	updateTag(`user-watchlist-${userId}`);
+	updateTag(`movie-${movieId}-watchlist`);
 };

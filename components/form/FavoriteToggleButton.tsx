@@ -41,7 +41,7 @@ export default function FavoriteToggleButton({
 					asChild
 					variant={"outline"}
 					size={"icon"}
-					className='cursor-pointer p-2 text-red-600 hover:text-red-700 transition-all duration-300 hover:scale-110'>
+					className='cursor-pointer p-2 text-red-600 hover:text-red-700 transition-all duration-300 hover:scale-110 bg-black/20 hover:bg-red-600/20'>
 					<Heart className='' size={20} fill='currentColor' />
 				</Button>
 			) : (
@@ -51,7 +51,7 @@ export default function FavoriteToggleButton({
 					asChild
 					variant={"outline"}
 					size={"icon"}
-					className='cursor-pointer p-2 text-white hover:text-red-700 transition-all duration-300 hover:scale-110'>
+					className='cursor-pointer p-2 text-red-600 hover:text-red-700 transition-all duration-300 hover:scale-110 bg-black/20 hover:bg-red-600/20'>
 					<Heart className='' size={20} />
 				</Button>
 			)}

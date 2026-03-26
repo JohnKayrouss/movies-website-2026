@@ -40,7 +40,7 @@ export default function WatchListToggleButton({
 					disabled={pending}
 					size='lg'
 					variant='outline'
-					className='border-2 border-yellow-400/50 text-yellow-400 hover:bg-yellow-400/10 px-4 py-0 text-lg transition-all duration-500 hover:scale-110 hover:border-yellow-400 bg-transparent backdrop-blur-sm group cursor-pointer'>
+					className='border-2 border-yellow-400/50 text-yellow-400 hover:bg-yellow-400/20 px-4 py-0 text-lg transition-all duration-500 hover:scale-110 hover:border-yellow-400 bg-transparent backdrop-blur-sm group cursor-pointer hover:text-yellow-500'>
 					<ListCheck
 						className='mr-3 h-7 w-7 group-hover:rotate-360 transition-transform duration-300 cursor-pointer '
 						fill='currentColor'
